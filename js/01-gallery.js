@@ -35,15 +35,18 @@ function onShowGalleryEl(event) {
     
     const instance = basicLightbox.create(`
     <img src="${event.target.dataset.source}">
-`)
+`, {
+        onShow: (instance) => { document.addEventListener('keydown', escModal) },
+        onClose: (instance) => { document.removeEventListener('keydown', escModal) }
+    })
     
     instance.show();
 
-    galleryEl.addEventListener('keydown', (event) => {
+    function escModal(event) {
         if (event.code === "Escape") {
             instance.close()
         }  
-})
+}
 }
 
 
